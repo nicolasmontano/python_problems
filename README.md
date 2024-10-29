@@ -69,7 +69,7 @@ def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
     return [value for value  in  str_dict.values()]
 ```
 # Hash table
-## 29. Group anagrams (medium)
+## 29. Group anagrams (easy)
 Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 An input string is valid if:
 Open brackets must be closed by the same type of brackets.
@@ -92,4 +92,67 @@ def isValid(self, s: str) -> bool:
     if stack:
         return False
     return True    
+```
+## 40. Insert Delete GetRandom O(1)
+Implement the RandomizedSet class:
+
+RandomizedSet() Initializes the RandomizedSet object.
+bool insert(int val) Inserts an item val into the set if not present. Returns true if the item was not present, false otherwise.
+bool remove(int val) Removes an item val from the set if present. Returns true if the item was present, false otherwise.
+int getRandom() Returns a random element from the current set of elements (it's guaranteed that at least one element exists when this method is called). Each element must have the same probability of being returned.
+You must implement the functions of the class such that each function works in average O(1) time complexity.
+```python
+from random import  randint
+class RandomizedSet:
+
+    def __init__(self):
+        self.values_dict=dict()
+        self.values_list=[]
+
+    def insert(self, val: int) -> bool:
+        # print("insert",self.values_dict.keys())
+        if val not in self.values_dict.keys():
+            self.values_dict[val]=len(self.values_list)
+            self.values_list.append(val)
+            return True
+        else:
+            return False
+
+    def remove(self, val: int) -> bool:
+        # print("remove",self.values_dict.keys())
+        if val not in self.values_dict.keys():
+            return False
+        else:
+            index=self.values_dict[val]
+            val_replace=self.values_list[-1]
+            self.values_dict[self.values_list[-1]]=index
+            self.values_list[index]=val_replace
+            self.values_list.pop()
+            self.values_dict.pop(val)
+            # print("remove_2",self.values_dict.keys())
+            return True
+
+    def getRandom(self) -> int:
+        if self.values_list:
+            max_index=len(self.values_list)-1
+            return self.values_list[randint(0,max_index)]
+        else:
+            return None
+```
+# Sorted list by key
+## 39. K Closest Points to Origin
+Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
+The distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).
+You may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).
+```python
+def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+
+    def calc_eucl_dist(x1:List[int],x2:List[int]=[0,0]):
+        return math.sqrt((x1[0]-x2[0])**2+(x1[1]-x2[1])**2)
+    
+    new_list=[]
+    for point in points:
+        new_list.append((point,calc_eucl_dist(point)))
+    new_list.sort(key=lambda x:x[1])
+    return [x[0] for x in new_list[:k]]
 ```
