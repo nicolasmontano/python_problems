@@ -156,3 +156,23 @@ def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
     new_list.sort(key=lambda x:x[1])
     return [x[0] for x in new_list[:k]]
 ```
+
+# Subarrays
+## 39. K Closest Points to Origin
+Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+A subarray is a contiguous non-empty sequence of elements within an array.
+```python
+from collections import defaultdict
+def subarraySum(self, nums: List[int], k: int) -> int:
+    count = 0
+    sum_counts=defaultdict(int)
+    sum_counts[0]=1 # Initialize with a sum of 0 occurring for the first sum-k
+    current_sum = 0
+
+    for num in nums:
+        current_sum += num
+        if current_sum - k in sum_counts:
+            count += sum_counts[current_sum - k]
+        sum_counts[current_sum]+=1 # to consider 0 or negatives
+    return count
+```
