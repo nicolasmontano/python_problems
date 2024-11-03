@@ -157,7 +157,7 @@ def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
     return [x[0] for x in new_list[:k]]
 ```
 
-# Subarrays
+# Continious Subarrays
 ## 39. K Closest Points to Origin
 Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
 A subarray is a contiguous non-empty sequence of elements within an array.
@@ -175,4 +175,18 @@ def subarraySum(self, nums: List[int], k: int) -> int:
             count += sum_counts[current_sum - k]
         sum_counts[current_sum]+=1 # to consider 0 or negatives
     return count
+```
+
+# Kadane's Algorithm (max subarray)
+## 51. Maximum Subarray
+Given an integer array nums, find the subarray with the largest sum, and return its sum.
+```python
+def maxSubArray(self, nums: List[int]) -> int:
+    max_current = max_global = nums[0]
+
+    for num in nums[1:]:
+        max_current = max(num, max_current + num)
+        max_global = max(max_global, max_current)
+    
+    return max_global
 ```
