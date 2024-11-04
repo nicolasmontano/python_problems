@@ -190,11 +190,11 @@ def maxSubArray(self, nums: List[int]) -> int:
     
     return max_global
 ```
-## 51. Maximum Subarray
-Given an integer array nums, find the subarray with the largest sum, and return its sum.
+## 51. Maximum Product Subarray
+Given an integer array nums, find a subarray that has the largest product, and return the product.
 ```python
 def maxProduct(self, nums: List[int]) -> int:
-    max_prod = min_prod = result = nums[0]
+    max_prod = min_prod = max_global = nums[0]
      # Iterate through the array starting from the second element
     for i in range(1, len(nums)):
         # If the current number is negative, swapping max_prod and min_prod helps manage sign flipping
@@ -206,7 +206,7 @@ def maxProduct(self, nums: List[int]) -> int:
         min_prod = min(nums[i], min_prod * nums[i])
   
         # Update the result with the maximum product found so far
-        result = max(result, max_prod)
-    return result
+        max_global = max(max_global, max_prod)
+    return max_global
 ```
 
