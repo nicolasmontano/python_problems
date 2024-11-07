@@ -209,4 +209,24 @@ def maxProduct(self, nums: List[int]) -> int:
         max_global = max(max_global, max_prod)
     return max_global
 ```
+# Sliding Window
+## 56. 	Longest Substring Without Repeating Characters 
+Given a string s, find the length of the longest substring without repeating characters.
+```python
+def lengthOfLongestSubstring(self, s: str) -> int:
+    # s="tmmzuxt"
+    max_len=0
+    char_dict={}
+    start,end=0,0
+    for i,char in enumerate(s):
+        if char in char_dict and char_dict[char]>=start:
+            start=char_dict[char]+1
+        
+        char_dict[char]=i
+        end=i
+        # print(start,end)
+        max_len=max(max_len,end-start+1)
+    return max_len
+```
+
 
