@@ -256,28 +256,27 @@ A teacher is writing a test with n true/false questions, with 'T' denoting true 
 He wants to confuse the students by maximizing the number of consecutive questions with the same answer 
 (multiple trues or multiple falses in a row).
 ```python
-def max_consec(char):
-    left = 0
-    right = 0
-    max_len=0
-    char_to_change=0
+def maxConsecutiveAnswers(self, answerKey: str, k: int) -> int:
+    # sliding window
+    def max_consec(char):
+        left = 0
+        right = 0
+        max_len=0
+        char_to_change=0
 
-    while right<len(answerKey):
+        while right<len(answerKey):
 
-        if answerKey[right]!=char:
-            char_to_change+=1
+            if answerKey[right]!=char:
+                char_to_change+=1
 
-        while char_to_change>k:
-            if answerKey[left]!=char:
-                char_to_change-=1
-            left+=1
+            while char_to_change>k:
+                if answerKey[left]!=char:
+                    char_to_change-=1
+                left+=1
 
-        max_len=max(max_len,right-left+1)
-        right+=1
+            max_len=max(max_len,right-left+1)
+            right+=1
 
         return max_len
-
-    return max(max_consec('T'),max_consec('F'))
-        
 ```
 
