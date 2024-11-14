@@ -279,4 +279,28 @@ def maxConsecutiveAnswers(self, answerKey: str, k: int) -> int:
 
         return max_len
 ```
+# multiple functions in one
+## 58. return one, next
+return x = [1, 2, None, 3, [4, '5', 6, [7, 8, 9]]]  first, third, fifth, ...
+```python
+def main(input_structure):
+    output_list: list[str, int, float,None] = []
+    counter: int = 0
 
+    def return_one_other(structure: list[Any]):
+        nonlocal counter
+        for i, elem in enumerate(structure):
+            if isinstance(elem, list):
+                return_one_other(elem)
+
+            elif isinstance(elem, (str, int, float)):
+                counter += 1
+                if counter % 2 > 0:
+                    output_list.append(elem)
+            else:
+                pass
+            # print(elem)
+
+    return_one_other(input_structure)
+    return output_list
+```
